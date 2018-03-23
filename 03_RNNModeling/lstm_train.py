@@ -15,6 +15,7 @@ def safe_mkdir(path):
 def read_vocab(file_path):
     with open(file_path, 'r') as fin:
         vocab = [x.strip() for x in fin.readlines()]
+        vocab = [x for x in vocab if x != '']
     return vocab
 
 
