@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
 import tensorflow as tf
 import time
 import os
 import random
+import jieba
+import string
 
 
 def safe_mkdir(path):
@@ -15,12 +18,17 @@ def safe_mkdir(path):
 def read_vocab(file_path):
     with open(file_path, 'r') as fin:
         vocab = [x.strip() for x in fin.readlines()]
-        vocab = [x for x in vocab if x != '']
+        vocab = [x.decode('utf-8') for x in vocab if x != '']
     return vocab
+
+
+def custom_tokenizer(text):
+    return [token for token in jieba.cut(text) if token not in string.punctuation+" " and token != '\n']
 
 
 def read_data(filename, vocab, window, overlap):
     lines = [line.strip() for line in open(filename, 'r').readlines()]
+    lines = [custom_tokenizer(text) for text in lines]
     while True:
         random.shuffle(lines)
 
@@ -80,10 +88,10 @@ class CharRNN(object):
         self.output, self.out_state = tf.nn.dynamic_rnn(cells, seq, length, self.in_state)
 
     def create_model(self):
-        seq = tf.one_hot(self.seq, len(self.vocab))
+        seq = tf.one_hot(self.seq-1, len(self.vocab))  # vocab_encode has plus 1 but one_hot index should start from 0
         self.create_rnn(seq)
         self.logits = tf.layers.dense(self.output, len(self.vocab), None)
-        loss = tf.nn.softmax_cross_entropy_with_logits(logits=self.logits[:, :-1],
+        loss = tf.nn.softmax_cross_entropy_with_logits(logits=self.logits[:, :-1],  # :-1?
                                                        labels=seq[:, 1:])
         self.loss = tf.reduce_sum(loss)
         # sample the next character from Maxwell-Boltzmann Distribution
@@ -126,17 +134,17 @@ class CharRNN(object):
     def online_infer(self, sess):
         """ Generate sequence one character at a time, based on the previous character
         """
-        for seed in ['Hillary', 'I', 'R', 'T', '@', 'N', 'M', '.', 'G', 'A', 'W']:
+        for seed in [u'\u5982\u679c\u8bf4', u'\u8fd9\u4e2a']:
             sentence = seed
             state = None
             for _ in range(self.len_generated):
-                batch = [vocab_encode(sentence[-1], self.vocab)]
+                batch = [vocab_encode(sentence[0], self.vocab)]
                 feed = {self.seq: batch}
                 if state is not None:  # for the first decoder step, the state is None
                     for i in range(len(state)):
                         feed.update({self.in_state[i]: state[i]})
                 index, state = sess.run([self.sample, self.out_state], feed)
-                sentence += vocab_decode(index, self.vocab)
+                sentence += vocab_decode(index, self.vocab)  # +1?
             print('\t' + sentence)
 
 
