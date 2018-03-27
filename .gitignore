@@ -1,3 +1,4 @@
 .idea/*
-zh/*
-01_WebScraping/.ipynb_checkpoints/*
+*/zh/*
+*/.ipynb_checkpoints/*
+*/checkpoints/*

@@ -68,7 +68,7 @@ class CharRNN(object):
         self.seq = tf.placeholder(tf.int32, [None, None])
         self.temp = tf.constant(1.5)
         self.hidden_sizes = [128, 256]
-        self.batch_size = 64
+        self.batch_size = 32
         self.lr = 0.0003
         self.skip_step = 1
         self.num_steps = 50  # for RNN unrolled
@@ -96,7 +96,8 @@ class CharRNN(object):
         self.loss = tf.reduce_sum(loss)
         # sample the next character from Maxwell-Boltzmann Distribution
         # with temperature temp. It works equally well without tf.exp
-        self.sample = tf.multinomial(tf.exp(self.logits[:, -1] / self.temp), 1)[:, 0]
+        # self.sample = tf.multinomial(tf.exp(self.logits[:, -1] / self.temp), 1)[:, 0]
+        self.sample = tf.multinomial(self.logits[:, -1], 1)[:, 0]
         self.opt = tf.train.AdamOptimizer(self.lr).minimize(self.loss, global_step=self.gstep)
 
     def train(self):
@@ -123,7 +124,7 @@ class CharRNN(object):
                     print('Iter {}. \n    Loss {}. Time {}'.format(iteration, batch_loss, time.time() - start))
                     self.online_infer(sess)
                     start = time.time()
-                    checkpoint_name = 'checkpoints/char-rnn'
+                    checkpoint_name = '/Users/jinangela/Documents/IndependentResearch/RisingChineseHipHop/03_RNNModeling/checkpoints/hiphop_generator'
                     if min_loss is None:
                         saver.save(sess, checkpoint_name, iteration)
                     elif batch_loss < min_loss:
