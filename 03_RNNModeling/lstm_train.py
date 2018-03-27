@@ -59,12 +59,13 @@ def vocab_decode(array, vocab):
 
 
 class CharRNN(object):
-    def __init__(self, vocab):
+    def __init__(self, root_dir):
         """
         A Chinese Hip Hop Song Lyrics Generator
         """
-        self.path = '/Users/jinangela/Documents/IndependentResearch/RisingChineseHipHop/01_WebScraping/lyrics.txt'
-        self.vocab = vocab
+        self.root_dir = root_dir
+        self.path = os.path.join(root_dir, '01_WebScraping/lyrics.txt')
+        self.vocab = read_vocab(os.path.join(root_dir, '01_WebScraping/vocab.txt'))
         self.seq = tf.placeholder(tf.int32, [None, None])
         self.temp = tf.constant(1.5)
         self.hidden_sizes = [128, 256]
@@ -108,7 +109,7 @@ class CharRNN(object):
             writer = tf.summary.FileWriter('graphs/gist', sess.graph)
             sess.run(tf.global_variables_initializer())
 
-            ckpt = tf.train.get_checkpoint_state(os.path.dirname('checkpoints/checkpoint'))
+            ckpt = tf.train.get_checkpoint_state(os.path.dirname('checkpoints/hiphop_generator'))
             if ckpt and ckpt.model_checkpoint_path:
                 saver.restore(sess, ckpt.model_checkpoint_path)
 
@@ -124,7 +125,7 @@ class CharRNN(object):
                     print('Iter {}. \n    Loss {}. Time {}'.format(iteration, batch_loss, time.time() - start))
                     self.online_infer(sess)
                     start = time.time()
-                    checkpoint_name = '/Users/jinangela/Documents/IndependentResearch/RisingChineseHipHop/03_RNNModeling/checkpoints/hiphop_generator'
+                    checkpoint_name = os.path.join(self.root_dir, '03_RNNModeling/checkpoints/hiphop_generator')
                     if min_loss is None:
                         saver.save(sess, checkpoint_name, iteration)
                     elif batch_loss < min_loss:
@@ -150,10 +151,10 @@ class CharRNN(object):
 
 
 def main():
-    safe_mkdir('/Users/jinangela/Documents/IndependentResearch/RisingChineseHipHop/03_RNNModeling/checkpoints')
+    root_dir = '/Users/jinangela/Documents/IndependentResearch/RisingChineseHipHop/'
+    safe_mkdir(os.path.join(root_dir, '03_RNNModeling/checkpoints'))
 
-    vocab = read_vocab('/Users/jinangela/Documents/IndependentResearch/RisingChineseHipHop/01_WebScraping/vocab.txt')
-    lm = CharRNN(vocab)
+    lm = CharRNN(root_dir)
     lm.create_model()
     lm.train()
 
