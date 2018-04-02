@@ -1,5 +1,7 @@
 .idea/*
 */zh/*
 */.ipynb_checkpoints/*
-*/checkpoints/*
+*/checkpoints*/*
 */fastText/*
+01_WebScraping/lyrics/*
+
