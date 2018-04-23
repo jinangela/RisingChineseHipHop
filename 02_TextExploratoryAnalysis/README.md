@@ -9,7 +9,7 @@ You need to install the following python packages before running the jupyter not
 * [wordcloud](https://pypi.org/project/wordcloud/)
 * [chardet](https://pypi.org/project/chardet/)
 
-### Data Cleaning & Preprocessing
+### 数据预处理 Data Cleaning & Preprocessing
 **Step 0**: We removed all the informational words(with the colons) before tokenization, including but not limited to:
 1. 演唱：
 2. 词：
@@ -35,4 +35,4 @@ Example word cloud plot:
 ![word cloud example](https://github.com/jinangela/RisingChineseHipHop/blob/master/02_TextExploratoryAnalysis/Episode%2012%20Word%20Cloud%20Test.png)
 
 ## Acknowledgements
-Inspired by 大数据文摘 | bigdatadigest <<[十分钟视频,手把手教你用Python撒情人节狗粮的正确姿势](http://mp.weixin.qq.com/s/ux2MqsjUwalHiIsm1f832w)>>.
+Inspired by 大数据文摘 | bigdatadigest 《[十分钟视频,手把手教你用Python撒情人节狗粮的正确姿势](http://mp.weixin.qq.com/s/ux2MqsjUwalHiIsm1f832w)》.
