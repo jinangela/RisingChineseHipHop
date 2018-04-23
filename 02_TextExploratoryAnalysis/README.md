@@ -29,9 +29,9 @@ We removed both Chinese and English stopwords.
 * The current Chinese stopword list comes from https://gist.github.com/dreampuf/5548203 and it will be replaced by https://github.com/stopwords-iso/stopwords-zh/blob/master/stopwords-zh.txt since the latter has a licence to ensure the quality.
 * The English stopword list comes from `nltk.corpus.stopwords.words('english')`.
 
-**Step 3**: 制作词云图 Create Word Cloud    
+### 制作词云图 Create Word Cloud    
 Use the [wordcloud](https://pypi.org/project/wordcloud/) package to create a `WordCloud` object and feed frequency counts of words into it to create a word cloud plot using [matplotlib](https://matplotlib.org/) package.    
-Example word cloud plot:
+Example word cloud plot:    
 ![word cloud example](https://github.com/jinangela/RisingChineseHipHop/blob/master/02_TextExploratoryAnalysis/Episode%2012%20Word%20Cloud%20Test.png)
 
 ## Acknowledgements
