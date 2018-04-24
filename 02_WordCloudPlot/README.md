@@ -1,6 +1,5 @@
 # Simple Word Cloud of Rap Lyrics from *The Rap of China*
-## Getting Started
-### Prerequisites
+## Prerequisites
 You need to install the following python packages before running the jupyter notebook [Word Cloud Plot.ipynb](https://github.com/jinangela/RisingChineseHipHop/blob/master/02_WordCloudPlot/Word%20Cloud%20Plot.ipynb):
 * [jieba](https://pypi.org/project/jieba/)    
 “结巴”中文分词：做最好的 Python 中文分词组件    
@@ -9,7 +8,7 @@ You need to install the following python packages before running the jupyter not
 * [wordcloud](https://pypi.org/project/wordcloud/)
 * [chardet](https://pypi.org/project/chardet/)
 
-### 数据预处理 Data Cleaning & Preprocessing
+## 数据预处理 Data Cleaning & Preprocessing
 **Step 0**: We removed all the informational words(with the colons) before tokenization, including but not limited to:
 1. 演唱：
 2. 词：
@@ -29,10 +28,10 @@ We removed both Chinese and English stopwords.
 * The current Chinese stopword list comes from https://gist.github.com/dreampuf/5548203 and it will be replaced by https://github.com/stopwords-iso/stopwords-zh/blob/master/stopwords-zh.txt since the latter has a licence to ensure the quality.
 * The English stopword list comes from `nltk.corpus.stopwords.words('english')`.
 
-### 制作词云图 Create Word Cloud    
+## 制作词云图 Create Word Cloud    
 Use the [wordcloud](https://pypi.org/project/wordcloud/) package to create a `WordCloud` object and feed frequency counts of words into it to create a word cloud plot using [matplotlib](https://matplotlib.org/) package.    
 Example word cloud plot:    
-![word cloud example](https://github.com/jinangela/RisingChineseHipHop/blob/master/02_TextExploratoryAnalysis/Episode%2012%20Word%20Cloud%20Test.png)
+![word cloud example](https://github.com/jinangela/RisingChineseHipHop/blob/master/02_WordCloudPlot/Episode%2012%20Word%20Cloud%20Test.png)
 
 ## Acknowledgements
 Inspired by 大数据文摘 | bigdatadigest 《[十分钟视频,手把手教你用Python撒情人节狗粮的正确姿势](http://mp.weixin.qq.com/s/ux2MqsjUwalHiIsm1f832w)》.
