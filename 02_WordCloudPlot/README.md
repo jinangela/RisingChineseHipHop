@@ -1,7 +1,7 @@
 # Simple Word Cloud of Rap Lyrics from *The Rap of China*
 ## Getting Started
 ### Prerequisites
-You need to install the following python packages before running the jupyter notebook [EDA.ipynb](https://github.com/jinangela/RisingChineseHipHop/blob/master/02_TextExploratoryAnalysis/EDA.ipynb):
+You need to install the following python packages before running the jupyter notebook [Word Cloud Plot.ipynb](https://github.com/jinangela/RisingChineseHipHop/blob/master/02_TextExploratoryAnalysis/Word Cloud Plot.ipynb):
 * [jieba](https://pypi.org/project/jieba/)    
 “结巴”中文分词：做最好的 Python 中文分词组件    
 “Jieba” (Chinese for “to stutter”) Chinese text segmentation: built to be the best Python Chinese word segmentation module.
